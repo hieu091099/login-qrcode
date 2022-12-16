@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Press+Start+2P&family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,400;1,700&display=swap');
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="top">
+            <div class="logo">
+                <img src="./images/zlogo.png" alt="">
+            </div>
+            <div class="title">
+                <p>Xác minh tài khoản bằng cách quét mã QR</p>
+            </div>
+        </div>
+        <div class="box-qr">
+            <div class="box-qr-border">
+                <div id="qr"></div>
+            </div>
+            <p>Quét mã QR để đăng nhập</p>
+        </div>
+    </div>
+    <script src="./js/jquery.min.js"></script>
+    <script src="./js/qrcode.min.js"></script>
+    <script type="text/javascript">
+        var qrcode = new QRCode("qr", {
+            text: "http://jindo.dev.naver.com/collie",
+        });
+    </script>
+</body>
+
+</html>
