@@ -4,9 +4,10 @@ import { BarCodeScanner } from "expo-barcode-scanner";
 import axios from "axios";
 const deviceWith = Dimensions.get("window").width;
 const deviceHeight = Dimensions.get("window").height;
-const QRScreen = () => {
+const QRScreen = ({ route }) => {
   const [hasPermission, setHassPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
+  const { token } = route.params;
   const position = {
     leftTop: {
       borderTopLeftRadius: 5,
@@ -45,8 +46,7 @@ const QRScreen = () => {
     setScanned(true);
     let dataBody = {
       name: data,
-      token:
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXJJZCI6IjI5OTc1IiwiZnVsbE5hbWUiOiJWw5UgQ0jDjSBISeG6vlUiLCJiaXJ0aGRheSI6IjE5OTktMTAtMDlUMDA6MDA6MDAuMDAwWiIsImlkQ2FyZCI6IjI3MjcyNzM0NCIsImZhY3RvcnkiOiJMWVYiLCJsZXZlbCI6IjUifSwiaWF0IjoxNjcxNjc3ODg5LCJleHAiOjE2NzE2ODM4ODl9.lyaveLsyMUJPKnhj911rHki4nHOQc2hEhBNM1NqZcQc",
+      token: token,
     };
     try {
       let result = await axios({

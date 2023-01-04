@@ -3,7 +3,7 @@ import React, { createContext, useState } from "react";
 
 export const AppContext = createContext();
 
-const Provider = ({ children }) => {
+export const Provider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   return (
     <AppContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
@@ -12,4 +12,4 @@ const Provider = ({ children }) => {
   );
 };
 
-export default Provider;
+// export default Provider;

@@ -11,8 +11,9 @@ import React from "react";
 import Icon from "react-native-vector-icons/AntDesign";
 import { useNavigation } from "@react-navigation/native";
 
-const Home = () => {
+const Home = ({ route }) => {
   const navigation = useNavigation();
+  const { token } = route.params;
   return (
     <View style={styles.container}>
       <Image style={styles.tinyLogo} source={require("../assets/zlogo.png")} />
@@ -21,7 +22,7 @@ const Home = () => {
       </Text>
       <TouchableOpacity
         onPress={() => {
-          navigation.navigate("Qr");
+          navigation.navigate("Qr", { token: token });
         }}
         style={styles.button}
       >
