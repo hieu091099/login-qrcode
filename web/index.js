@@ -28,12 +28,10 @@ app.get("/", (req, res) => {
 
 app.get("/check/:id", (req, res) => {
   let data = req.params;
-  console.log(data.id);
   let sql =
     "select * from `check` where name = '" +
     data.id +
     "' and isCheck = 0 LIMIT 1";
-  console.log(sql);
   db.query(sql, function (err, results) {
     if (err) return res.status(500).json(err);
 
@@ -44,7 +42,7 @@ app.get("/check/:id", (req, res) => {
         data.id +
         "' and isCheck = 0";
       db.query(update, function (err, results) {});
-      res.status(200).json({ data: token });
+      res.status(200).json(token);
     } else {
       res.status(204).json({ msg: "None" });
     }
@@ -53,7 +51,6 @@ app.get("/check/:id", (req, res) => {
 
 app.post("/check", (req, res) => {
   let data = req.body;
-
   var sql =
     "insert into `check` values ('" +
     data.name +

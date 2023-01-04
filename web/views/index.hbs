@@ -16,23 +16,60 @@
     <div id="app">
         <div class="top">
             <div class="logo">
-                <img src="/images/zlogo.png" alt="">
+                <img style="width:100%" src="/images/zlogo.png" alt="">
             </div>
             <div class="title">
                 <p>Xác minh tài khoản bằng cách quét mã QR</p>
             </div>
         </div>
         <div class="box-qr">
-            <div class="box-qr-border">
-                <div id="qr"></div>
+            <div id="qr-content">
+                <div class="box-qr-border">
+                    <div  id="qr"></div>
+                </div>
+                <div id="check-done">
+                    <lottie-player src="https://assets5.lottiefiles.com/packages/lf20_niyfyoqs.json" background="transparent" speed="1"
+                        style="width: 224px; height: 224px;"></lottie-player>
+                </div>
             </div>
-            <p>Quét mã để đăng nhập</p>
+            <div id="info">
+                <div id="avatar" style="text-align:center">
+                    <img src="./images/avatar.png" style="width:100px;height:100px">
+                </div>
+                <div class="info-row">
+                    <span class="text-title">Full Name:</span>
+                    <span class="text-value" id="fullName">Nguyễn Văn A</span>
+                </div>
+                <div class="info-row">
+                    <span class="text-title">Birthday:</span>
+                    <span class="text-value" id="birthday">09-10-1991</span>
+                </div>
+                <div class="info-row">
+                    <span class="text-title">ID Card:</span>
+                    <span class="text-value" id="idCard">262626345</span>
+                </div>
+                <div class="info-row">
+                    <span class="text-title">Factory:</span>
+                    <span class="text-value" id="factory">LYV</span>
+                </div>
+            </div>
+            <p id="text">Quét mã để đăng nhập</p>
         </div>
+        
+       
+       
     </div>
     <script src="/js/jquery.min.js"></script>
     <script src="/js/qrcode.min.js"></script>
+    <script src="/js/jwt-decode.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
     <script type="text/javascript">
+        $(document).ready(function(){
+            $("#check-done").hide();
+        
+        })
+        
         function uuid() {
             var temp_url = URL.createObjectURL(new Blob());
             var uuid = temp_url.toString();
@@ -48,12 +85,23 @@
             let result = await axios({
                 method:'GET',
                 url:`http://localhost:88/check/${uniqueId}`,
-                
             })
             if(result.status === 200){
-                alert("Done")
-                console.log(result.data)
-                clearInterval(interval)
+                let decoded = jwt_decode(result.data);
+                clearInterval(interval);
+                $("#check-done").show();
+                let player = document.querySelector("lottie-player");
+                player.play();
+
+                setTimeout(()=>{
+                    $("#fullName").html(decoded.data.fullName);
+                    $("#birthday").html(decoded.data.birthday.split("T")[0]);
+                    $("#idCard").html(decoded.data.idCard);
+                    $("#factory").html(decoded.data.factory);
+                    $("#info").show();
+                    $("#qr-content").hide();
+                    $("#text").hide();
+                },2000)
             }
         },1000)
     </script>
