@@ -27,7 +27,7 @@ export default function LoginScreen() {
         onChangeText={(value) => setUser({ ...user, userId: value })}
         placeholder="Username"
         leftIcon={
-          <Icon name="user" type="ant-design" size={24} color="#517fa4" />
+          <Icon name="user" type="ant-design" size={24} color="#0573ff" />
         }
       />
       <Input
@@ -35,7 +35,7 @@ export default function LoginScreen() {
         onChangeText={(value) => setUser({ ...user, password: value })}
         placeholder="Password"
         leftIcon={
-          <Icon name="key" type="ant-design" size={24} color="#517fa4" />
+          <Icon name="key" type="ant-design" size={24} color="#0573ff" />
         }
       />
       <Button
@@ -45,7 +45,7 @@ export default function LoginScreen() {
             url: "http://erp.lacty.com.vn:8081/auth/login",
             data: user,
           });
-          if (result.status === 200) {
+          if (result.data.authenticated == true) {
             let data = result.data;
             navigation.navigate("Home", { token: data.accessToken });
           } else {
@@ -53,7 +53,8 @@ export default function LoginScreen() {
           }
         }}
         containerStyle={{
-          width: 300,
+          width: 500,
+          height: 300,
         }}
         title="Login"
         type="solid"

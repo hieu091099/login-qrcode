@@ -54,7 +54,6 @@ const QRScreen = ({ route }) => {
         url: "http://192.168.18.172:88/check",
         data: dataBody,
       });
-      console.log(result.data);
     } catch (error) {
       console.log({ error });
     }
